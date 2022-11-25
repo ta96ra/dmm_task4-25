@@ -2,15 +2,97 @@
 <html>
   <head>
     <title>Bookers2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pl-5 pr-5">
+      <a class="navbar-brand" href="/">Bookers</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
 
+          <% if user_signed_in? %>
+            <!--ログイン済みの場合-->
+            <li class="nav-item active ml-3 pt-2 pb-2">
+            <!--間違ってるかも-->
+            <%= link_to user_path(current_user.id) do %>
+              <i class="fas fa-home text-light"></i>
+              <span class="text-light">Homes</span>
+            <% end %>
+          </li>
+          <li class="nav-item ml-3 pt-2 pb-2">
+            <%= link_to users_path do %>
+              <i class="fas fa-users text-light"></i>
+              <span class="text-light">Users</span>
+            <% end %>
+          </li>
+          <li class="nav-item ml-3 pt-2 pb-2">
+            <%= link_to books_path do %>
+              <i class="fas fa-book-open text-light"></i>
+              <span class="text-light">Books</span>
+            <% end %>
+          </li>
+            
+            <li class="nav-item ml-3 pt-2 pb-2">
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fas fa-sign-out-alt text-light"></i>
+                <span class="text-light">Log out</span>
+              <% end %>
+            </li>
+          <% else %>
+            <!--ログアウトされている場合-->
+            <li class="nav-item active ml-3 pt-2 pb-2">
+            <%= link_to root_path do %>
+              <i class="fas fa-home text-light"></i>
+              <span class="text-light">Homes</span>
+            <% end %>
+            </li>
+            <li class="nav-item active ml-3 pt-2 pb-2">
+            <%= link_to about_path do %>
+              <i class="fas fa-link text-light"></i>
+              <span class="text-light">About</span>
+            <% end %>
+            </li>
+            <li class="nav-item ml-3 pt-2 pb-2">
+              <%= link_to new_user_registration_path do %>
+                <i class="fas fa-user-plus text-light"></i>
+                <span class="text-light">Sign up</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-3 pt-2 pb-2">
+              <%= link_to  new_user_session_path do %>
+                <i class="fas fa-sign-in-alt text-light"></i>
+                <span class="text-light">Log in</span>
+              <% end %>  
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  
+  </header>
   <body>
-    <%= yield %>
+    <main>
+      <% flash.each do |message_type, message| %>
+　　    <p class="mt-0 pt-0"><%= message %></p>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
+  <footer>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="mx-auto">
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </html>

@@ -1,0 +1,43 @@
+<!--ログイン後の画面  /users/id-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <!--_userテンプレートファイル-->
+      <%= render 'user',{user:@user,book:@book} %>
+    </div>
+    
+    
+    <!--ユーザーの投稿一覧-->
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col-4">#</th>
+          <th scope="col-3">Title</th>
+          <th scope="col-5">Opinion</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+          <tr>  
+            <td>
+              <!--修正中-->
+              <%= link_to user_path(@user) do %>
+                <%= image_tag @user.get_profile_image(100,100) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book_path(book.id) do %>
+                <%= book.title %>
+              <% end %>
+            </td>
+            <td><%= book.body %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <div> 
+  </div>
+</div>

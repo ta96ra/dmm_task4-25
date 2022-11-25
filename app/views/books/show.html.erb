@@ -1,0 +1,48 @@
+<!--Books detailの画面 /books/id-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/user',{user:@user,book:@nilbook} %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <div class="row">
+        
+      </div>
+      <div class="row">
+        <div class="col-3">
+        <!--user#showへリダイレクト-->
+        <%= link_to user_path(@user.id) do %>
+          <%= image_tag @user.get_profile_image(100,100) %>
+        <% end %>  
+        
+          <!--これだとログイン中のユーザーにとんでしまう-->
+        
+          <%= link_to user_path(@user.id) do %>
+          <p><%= @user[:name] %></p>
+          <% end %>
+        </div>
+        <div class="col-2">
+          <%= link_to book_path(@book.id) do %>
+          <p><%= @book[:title] %></p>
+          <% end %>
+        </div>
+        <div class="col-3">
+          <p><%= @book[:body] %></p>
+        </div>
+        <div class="col-2">
+          <% if @book.user == current_user %>
+            <%= link_to 'Edit', edit_book_path,class:"btn btn-success"%>
+          <% end %>  
+        </div>
+        <div class="col-2">
+          <% if @book.user == current_user %>
+            <%= link_to "Destroy", book_path(@book), class:"btn btn-danger" ,method: :delete, "data-confirm" => "本当に消しますか？"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>

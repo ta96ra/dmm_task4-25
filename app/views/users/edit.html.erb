@@ -1,0 +1,30 @@
+<!--Usersの編集画面-->
+<div class="container">
+  <% if @user.errors.any? %>
+  <h2>User info</h2>
+  <h2><%= @user.errors.count %> error prohibited this obj from being saved:</h2>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+      <h2>User info</h2>
+      <%= form_with model: @user do |f| %>
+        <!--<label for="inputName">Name</label>-->
+        <p class="mb-2">Name</p>
+        <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前",class:"w-100" %>
+        <!--<label for="inputImage">Image</label>-->
+        <p class="mb-2">Image</p>
+        <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*",class:"mb-3" %>  
+        <p class="mb-2">Introduction</p>
+        <%= f.text_area :introduction ,class:"w-100 mb-3" %>
+        <div class="row mb-3 ml-1">
+          <%= f.submit "Update User",class:'btn btn-secondary'%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
